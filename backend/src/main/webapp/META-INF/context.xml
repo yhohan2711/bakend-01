@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  CONFIGURACIÓN DEL CONTEXTO DE LA APLICACIÓN
+  Este archivo configura el DataSource para acceder a MySQL desde Tomcat
+-->
+<Context>
+    <!-- 
+      DataSource configurado con JNDI para MySQL
+      
+      CONFIGURACIÓN PARA EL SERVIDOR:
+      - Asegúrate de que MySQL esté accesible desde el servidor
+      - Actualiza la URL, username y password según tu servidor
+      - Copia el driver mysql-connector-java.jar a [TOMCAT_HOME]/lib/
+    -->
+    <Resource 
+        name="jdbc/opticadigitalDB" 
+        auth="Container"
+        type="javax.sql.DataSource"
+        maxTotal="20"
+        maxIdle="10"
+        maxWaitMillis="10000"
+        driverClassName="com.mysql.cj.jdbc.Driver"
+        url="jdbc:mysql://localhost:3306/opticadigital_db?useSSL=false&amp;serverTimezone=UTC&amp;allowPublicKeyRetrieval=true&amp;characterEncoding=UTF-8&amp;useUnicode=true"
+        username="root"
+        password=""
+        testOnBorrow="true"
+        validationQuery="SELECT 1"
+    />
+</Context>

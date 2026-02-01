@@ -1,0 +1,285 @@
+/* 
+   🎨 OPTICA DIGITAL - PREMIUM DESIGN SYSTEM 
+   Theme: Dark Glassmorphism with Neon Accents
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --primary-color: #00E0FF;
+    --secondary-color: #7000FF;
+    --bg-dark: #0f172a;
+    --text-light: #f8fafc;
+    --text-gray: #94a3b8;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: var(--bg-dark);
+    /* Fondo abstracto moderno */
+    background-image:
+        radial-gradient(circle at 10% 20%, rgba(112, 0, 255, 0.2) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(0, 224, 255, 0.2) 0%, transparent 20%);
+    color: var(--text-light);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+/* --- LOGIN CONTAINER --- */
+.login-container {
+    display: flex;
+    width: 900px;
+    max-width: 95%;
+    height: 600px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    box-shadow: var(--glass-shadow);
+    overflow: hidden;
+    animation: fadeIn 0.8s ease-out;
+}
+
+/* --- LEFT SIDE (BRANDING) --- */
+.login-brand {
+    flex: 1;
+    background: linear-gradient(135deg, rgba(0, 224, 255, 0.1), rgba(112, 0, 255, 0.1));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.login-brand::before {
+    content: '';
+    position: absolute;
+    width: 150%;
+    height: 150%;
+    background: radial-gradient(circle, rgba(0, 224, 255, 0.1) 0%, transparent 60%);
+    animation: pulse 4s infinite ease-in-out;
+}
+
+.brand-logo {
+    font-size: 4rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    z-index: 1;
+    filter: drop-shadow(0 0 10px rgba(0, 224, 255, 0.5));
+}
+
+.brand-title {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    background: linear-gradient(to right, #fff, var(--primary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    z-index: 1;
+    text-align: center;
+}
+
+.brand-subtitle {
+    color: var(--text-gray);
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    z-index: 1;
+    text-align: center;
+}
+
+/* --- RIGHT SIDE (FORM) --- */
+.login-form-wrapper {
+    flex: 1;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.login-header {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.login-header h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.login-header p {
+    color: var(--text-gray);
+    font-size: 0.9rem;
+}
+
+/* --- INPUTS --- */
+.input-group {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.input-group i {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-gray);
+    transition: color 0.3s;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 1rem 1rem 1rem 3rem;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    color: white;
+    font-size: 0.95rem;
+    transition: all 0.3s;
+    outline: none;
+}
+
+.input-group input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 15px rgba(0, 224, 255, 0.1);
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.input-group input:focus+i {
+    color: var(--primary-color);
+}
+
+/* --- ACTIONS --- */
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    font-size: 0.85rem;
+    color: var(--text-gray);
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.checkbox-container input {
+    accent-color: var(--primary-color);
+}
+
+.forgot-password {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: opacity 0.3s;
+}
+
+.forgot-password:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+}
+
+/* --- BUTTONS --- */
+.btn-primary {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-bottom: 1rem;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 224, 255, 0.3);
+}
+
+.btn-secondary {
+    width: 100%;
+    padding: 1rem;
+    background: transparent;
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    color: var(--text-light);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--text-gray);
+}
+
+/* --- ANIMATIONS --- */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: scale(1.1);
+        opacity: 0.3;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    .login-container {
+        flex-direction: column;
+        height: auto;
+        width: 90%;
+    }
+
+    .login-brand {
+        padding: 2rem 1rem;
+    }
+
+    .brand-logo {
+        font-size: 3rem;
+    }
+
+    .login-form-wrapper {
+        padding: 2rem;
+    }
+}

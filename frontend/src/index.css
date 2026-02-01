@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --primary-color: #4f46e5; /* Indigo 600 */
+  --primary-dark: #4338ca; /* Indigo 700 */
+  --secondary-color: #06b6d4; /* Cyan 500 */
+  --background-color: #f8fafc; /* Slate 50 */
+  --surface-card: #ffffff;
+  --text-primary: #1e293b; /* Slate 800 */
+  --text-secondary: #64748b; /* Slate 500 */
+  --border-color: #e2e8f0; /* Slate 200 */
+  --radius: 12px;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --font-family: 'Inter', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background-color);
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: var(--primary-color);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.card {
+  background: var(--surface-card);
+  border-radius: var(--radius);
+  padding: 2rem;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 2rem;
+}
+
+/* PrimeReact Overrides for Premium Feel */
+.p-component {
+  font-family: var(--font-family) !important;
+  font-size: 0.95rem !important;
+}
+
+.p-button {
+  border-radius: 8px !important;
+  font-weight: 500 !important;
+}
+
+.p-inputtext {
+  border-radius: 8px !important;
+  padding: 0.75rem 1rem !important;
+}
+
+.p-datatable .p-datatable-header {
+  background: transparent !important;
+  border: none !important;
+  padding: 1rem 0 !important;
+}
+
+.p-datatable .p-datatable-thead > tr > th {
+  background: var(--surface-card) !important;
+  color: var(--text-secondary) !important;
+  font-weight: 600 !important;
+  border-bottom: 2px solid var(--border-color) !important;
+}
+
+.p-datatable .p-datatable-tbody > tr {
+  background: var(--surface-card) !important;
+  color: var(--text-primary) !important;
+}
+
+.p-datatable .p-datatable-tbody > tr:not(:last-child) > td {
+  border-bottom: 1px solid var(--border-color) !important;
+}

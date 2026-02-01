@@ -1,0 +1,33 @@
+# Dependencies
+frontend/node_modules/
+backend/target/
+backend/lib/
+
+# IDEs
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+.classpath
+.project
+.settings/
+backend/bin/
+
+# Production/Build
+frontend/build/
+backend/dist/
+
+# Misc
+.DS_Store
+Thumbs.db
+*.log
+.env*
+.mtj.tmp/
+
+# Java
+backend/**/*.class
+*.jar
+*.war
+*.zip
+*.tar.gz

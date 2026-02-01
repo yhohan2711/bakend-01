@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Óptica Digital</title>
+    <!-- Estilos Premium -->
+    <link rel="stylesheet" href="./css/styles.css">
+    <style>
+        /* Respaldo crítico por si falla la carga del CSS externo */
+        body {
+            background-color: #0f172a;
+            color: white;
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+    </style>
+    <!-- FontAwesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="login-container">
+        <!-- Lado Izquierdo: Branding -->
+        <div class="login-brand">
+            <i class="fas fa-glasses brand-logo"></i>
+            <h1 class="brand-title">OPTICA DIGITAL</h1>
+            <p class="brand-subtitle">Visión clara, futuro brillante</p>
+        </div>
+
+        <!-- Lado Derecho: Formulario -->
+        <div class="login-form-wrapper">
+            <div class="login-header">
+                <h2>Bienvenido</h2>
+                <p>Ingresa tus credenciales para acceder</p>
+            </div>
+
+            <!-- LOGIN BYPASS: Redirige directamente a la lista de usuarios -->
+            <form action="usuarios" method="GET">
+                <input type="hidden" name="action" value="listar">
+
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <!-- El valor no importa, solo es visual -->
+                    <input type="text" placeholder="Correo electrónico" value="admin@optica.com">
+                </div>
+
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <!-- El valor no importa, solo es visual -->
+                    <input type="password" placeholder="Contraseña" value="admin123">
+                </div>
+
+                <div class="form-actions">
+                    <label class="checkbox-container">
+                        <input type="checkbox" checked> Recordarme
+                    </label>
+                    <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+                </div>
+
+                <button type="submit" class="btn-primary">
+                    Ingresar al Sistema <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
+                </button>
+
+                <a href="registro.jsp" style="text-decoration: none;">
+                    <button type="button" class="btn-secondary">Crear Cuenta Nueva</button>
+                </a>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>

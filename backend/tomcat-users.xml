@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ARCHIVO DE CONFIGURACIÓN DE USUARIOS PARA TOMCAT
+  
+  INSTRUCCIONES:
+  1. Localiza tu instalación de Tomcat
+  2. Navega a: [TOMCAT_HOME]/conf/tomcat-users.xml
+  3. Reemplaza el contenido con este archivo
+  4. Reinicia Tomcat
+  5. Accede a: http://localhost:8080/manager/html
+  6. Usuario: admin / Contraseña: admin123
+-->
+<tomcat-users xmlns="http://tomcat.apache.org/xml"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://tomcat.apache.org/xml tomcat-users.xsd"
+              version="1.0">
+
+  <!-- Definición de roles -->
+  <role rolename="manager-gui"/>
+  <role rolename="manager-script"/>
+  <role rolename="manager-jmx"/>
+  <role rolename="manager-status"/>
+  <role rolename="admin-gui"/>
+  <role rolename="admin-script"/>
+
+  <!-- Usuario administrador con todos los permisos -->
+  <user username="admin" 
+        password="admin123" 
+        roles="manager-gui,manager-script,manager-jmx,manager-status,admin-gui,admin-script"/>
+
+  <!-- Usuario para despliegue automático (scripts) -->
+  <user username="deployer" 
+        password="deployer123" 
+        roles="manager-script"/>
+
+  <!-- Usuario solo para monitoreo -->
+  <user username="monitor" 
+        password="monitor123" 
+        roles="manager-status,manager-jmx"/>
+
+</tomcat-users>

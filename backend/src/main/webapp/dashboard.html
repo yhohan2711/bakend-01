@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Óptica Digital</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="dashboard-body">
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="flex items-center gap-2">
+            <i class="fas fa-glasses" style="color: var(--accent-blue); font-size: 1.5rem;"></i>
+            <h2 style="color: var(--text-dark);">ÓPTICA DIGITAL</h2>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#" class="active" onclick="showSection('home')">Inicio</a></li>
+            <li><a href="#" onclick="showSection('products')">Productos</a></li>
+            <li><a href="#" onclick="showSection('appointments')">Citas</a></li>
+            <li><a href="#" onclick="showSection('clients')">Clientes</a></li>
+            <li><a href="#" onclick="showSection('contact')">Contacto</a></li>
+        </ul>
+        <div class="flex items-center gap-4">
+            <div class="flex items-center gap-2" style="cursor: pointer;">
+                <img src="https://ui-avatars.com/api/?name=Admin+User&background=3B82F6&color=fff" alt="User"
+                    style="width: 40px; height: 40px; border-radius: 50%;">
+                <span style="font-weight: 500;">Admin</span>
+            </div>
+            <button onclick="logout()"
+                style="background: none; border: none; color: var(--text-secondary); cursor: pointer;">
+                <i class="fas fa-sign-out-alt fa-lg"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- HOME SECTION -->
+        <section id="home" class="fade-in">
+            <div class="hero">
+                <h2>Visión Clara, Futuro Brillante</h2>
+                <p>Descubre nuestra nueva colección de lentes premium y agenda tu examen hoy mismo.</p>
+                <button class="btn-primary"
+                    style="width: auto; padding: 1rem 2rem; background: white; color: var(--accent-blue);"
+                    onclick="showSection('products')">Ver Catálogo</button>
+            </div>
+
+            <h3 style="margin-bottom: 1.5rem;">Servicios Destacados</h3>
+            <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div class="product-card">
+                    <i class="fas fa-eye fa-3x" style="color: var(--accent-blue); margin-bottom: 1rem;"></i>
+                    <h3>Examen Visual</h3>
+                    <p style="text-align: center; color: var(--text-secondary); margin: 1rem 0;">Tecnología de punta
+                        para un diagnóstico preciso de tu salud visual.</p>
+                    <button class="btn-secondary"
+                        style="color: var(--accent-blue); border-color: var(--accent-blue);">Agendar</button>
+                </div>
+                <div class="product-card">
+                    <i class="fas fa-tools fa-3x" style="color: var(--accent-purple); margin-bottom: 1rem;"></i>
+                    <h3>Reparación</h3>
+                    <p style="text-align: center; color: var(--text-secondary); margin: 1rem 0;">Ajuste y reparación de
+                        monturas al instante por expertos.</p>
+                    <button class="btn-secondary"
+                        style="color: var(--accent-purple); border-color: var(--accent-purple);">Más Info</button>
+                </div>
+                <div class="product-card">
+                    <i class="fas fa-glasses fa-3x" style="color: #10B981; margin-bottom: 1rem;"></i>
+                    <h3>Lentes de Contacto</h3>
+                    <p style="text-align: center; color: var(--text-secondary); margin: 1rem 0;">Variedad de marcas y
+                        tipos para tu comodidad diaria.</p>
+                    <button class="btn-secondary" style="color: #10B981; border-color: #10B981;">Ver Opciones</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRODUCTS SECTION -->
+        <section id="products" class="hidden fade-in">
+            <div class="flex justify-between items-center" style="margin-bottom: 2rem;">
+                <h2>Catálogo de Productos</h2>
+                <div class="flex gap-2">
+                    <input type="text" placeholder="Buscar..."
+                        style="padding: 0.5rem; border: 1px solid #ddd; border-radius: var(--radius-md);">
+                    <select style="padding: 0.5rem; border: 1px solid #ddd; border-radius: var(--radius-md);">
+                        <option>Todos</option>
+                        <option>Sol</option>
+                        <option>Oftálmicos</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="products-grid">
+                <!-- Product 1 -->
+                <article class="product-card">
+                    <div
+                        style="width: 100%; height: 150px; background: #f1f5f9; border-radius: var(--radius-md); margin-bottom: 1rem; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-glasses fa-4x" style="color: #cbd5e1;"></i>
+                    </div>
+                    <h3>Ray-Ban Aviator</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Clásico estilo aviador con protección
+                        UV.</p>
+                    <h4 style="margin: 0.5rem 0; color: var(--accent-blue);">$150.00</h4>
+                    <button class="btn-primary" style="padding: 0.5rem;">Añadir al Carrito</button>
+                </article>
+                <!-- Product 2 -->
+                <article class="product-card">
+                    <div
+                        style="width: 100%; height: 150px; background: #f1f5f9; border-radius: var(--radius-md); margin-bottom: 1rem; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-glasses fa-4x" style="color: #cbd5e1;"></i>
+                    </div>
+                    <h3>Oakley Holbrook</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Diseño deportivo y resistente.</p>
+                    <h4 style="margin: 0.5rem 0; color: var(--accent-blue);">$130.00</h4>
+                    <button class="btn-primary" style="padding: 0.5rem;">Añadir al Carrito</button>
+                </article>
+                <!-- Product 3 -->
+                <article class="product-card">
+                    <div
+                        style="width: 100%; height: 150px; background: #f1f5f9; border-radius: var(--radius-md); margin-bottom: 1rem; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-glasses fa-4x" style="color: #cbd5e1;"></i>
+                    </div>
+                    <h3>Prada Cinema</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Elegancia y sofisticación italiana.</p>
+                    <h4 style="margin: 0.5rem 0; color: var(--accent-blue);">$280.00</h4>
+                    <button class="btn-primary" style="padding: 0.5rem;">Añadir al Carrito</button>
+                </article>
+            </div>
+        </section>
+
+        <!-- APPOINTMENTS SECTION -->
+        <section id="appointments" class="hidden fade-in">
+            <h2 style="text-align: center; margin-bottom: 2rem;">Agendar Cita</h2>
+            <div class="form-container">
+                <form>
+                    <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label>Nombre Completo</label>
+                            <input type="text" placeholder="Juan Pérez">
+                        </div>
+                        <div class="form-group">
+                            <label>Teléfono</label>
+                            <input type="tel" placeholder="+57 300 123 4567">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tipo de Servicio</label>
+                        <select>
+                            <option>Examen Visual General</option>
+                            <option>Adaptación de Lentes de Contacto</option>
+                            <option>Revisión de Control</option>
+                        </select>
+                    </div>
+
+                    <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label>Fecha</label>
+                            <input type="date">
+                        </div>
+                        <div class="form-group">
+                            <label>Hora</label>
+                            <input type="time">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary">Confirmar Cita</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- CLIENTS SECTION -->
+        <section id="clients" class="hidden fade-in">
+            <h2>Gestión de Clientes</h2>
+            <div
+                style="background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); overflow: hidden; margin-top: 1rem;">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead style="background: #f8fafc; border-bottom: 1px solid #e2e8f0;">
+                        <tr>
+                            <th style="padding: 1rem; text-align: left;">ID</th>
+                            <th style="padding: 1rem; text-align: left;">Nombre</th>
+                            <th style="padding: 1rem; text-align: left;">Email</th>
+                            <th style="padding: 1rem; text-align: left;">Última Visita</th>
+                            <th style="padding: 1rem; text-align: left;">Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #f1f5f9;">
+                            <td style="padding: 1rem;">#001</td>
+                            <td style="padding: 1rem;">Ana García</td>
+                            <td style="padding: 1rem;">ana@example.com</td>
+                            <td style="padding: 1rem;">2023-10-15</td>
+                            <td style="padding: 1rem;"><span
+                                    style="background: #dcfce7; color: #166534; padding: 0.25rem 0.5rem; border-radius: 1rem; font-size: 0.8rem;">Activo</span>
+                            </td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #f1f5f9;">
+                            <td style="padding: 1rem;">#002</td>
+                            <td style="padding: 1rem;">Carlos López</td>
+                            <td style="padding: 1rem;">carlos@example.com</td>
+                            <td style="padding: 1rem;">2023-09-20</td>
+                            <td style="padding: 1rem;"><span
+                                    style="background: #fee2e2; color: #991b1b; padding: 0.25rem 0.5rem; border-radius: 1rem; font-size: 0.8rem;">Pendiente</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="hidden fade-in">
+            <h2 style="text-align: center; margin-bottom: 2rem;">Contáctanos</h2>
+            <div class="form-container">
+                <form>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" placeholder="tu@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Mensaje</label>
+                        <textarea rows="5" placeholder="¿En qué podemos ayudarte?"></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary">Enviar Mensaje</button>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Óptica Digital. Todos los derechos reservados.</p>
+        <div class="flex justify-center gap-4" style="margin-top: 1rem;">
+            <a href="#" style="color: white;">Política de Privacidad</a>
+            <a href="#" style="color: white;">Términos de Servicio</a>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
