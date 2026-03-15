@@ -1,42 +1,40 @@
 package com.opticadigital.dao;
 
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
 import com.opticadigital.model.Usuario;
-import com.opticadigital.util.JPAUtil;
+import com.opticadigital.util.MongoDBUtil;
+import org.bson.conversions.Bson;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.TypedQuery;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * DAO para la entidad Usuario utilizando Hibernate (JPA).
- * Reemplaza las consultas JDBC directas por operaciones con EntityManager.
+ * DAO para la entidad Usuario utilizando MongoDB.
+ * Reemplaza la implementación de Hibernate (JPA).
  */
 public class UsuarioDAO {
+    private final MongoCollection<Usuario> collection;
 
     public UsuarioDAO() {
+        // Obtenemos la colección "usuarios" mapeada a la clase Usuario
+        this.collection = MongoDBUtil.getDatabase().getCollection("usuarios", Usuario.class);
     }
 
     /**
      * Autentica un usuario por email y contraseña.
      */
     public Usuario login(String email, String password) throws SQLException {
-        EntityManager em = JPAUtil.getEntityManager();
         try {
-            String jpql = "SELECT u FROM Usuario u WHERE u.email = :email AND u.password = :password";
-            TypedQuery<Usuario> query = em.createQuery(jpql, Usuario.class);
-            query.setParameter("email", email);
-            query.setParameter("password", password);
-
-            // getSingleResult lanza excepción si no encuentra nada, así que usamos
-            // getResultList
-            List<Usuario> resultados = query.getResultList();
-            return resultados.isEmpty() ? null : resultados.get(0);
+            Bson filter = Filters.and(
+                    Filters.eq("email", email),
+                    Filters.eq("password", password));
+            return collection.find(filter).first();
         } catch (Exception e) {
-            throw new SQLException("Error al autenticar usuario con Hibernate", e);
-        } finally {
-            em.close();
+            e.printStackTrace();
+            throw new SQLException("Error al autenticar usuario con MongoDB: " + e.getMessage(), e);
         }
     }
 
@@ -44,18 +42,20 @@ public class UsuarioDAO {
      * Inserta un nuevo usuario en la base de datos.
      */
     public void insertUsuario(Usuario usuario) throws SQLException {
-        EntityManager em = JPAUtil.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
         try {
-            tx.begin();
-            em.persist(usuario);
-            tx.commit();
+            // En MongoDB, si usamos un POJO con un campo 'id', este se mapea a '_id' por defecto.
+            // Para encontrar el ID máximo, ordenamos por '_id' de forma descendente.
+            if (usuario.getId() <= 0) {
+                Usuario ultimo = collection.find().sort(com.mongodb.client.model.Sorts.descending("_id")).first();
+                int nuevoId = (ultimo != null) ? ultimo.getId() + 1 : 1;
+                usuario.setId(nuevoId);
+            }
+            collection.insertOne(usuario);
         } catch (Exception e) {
-            if (tx.isActive())
-                tx.rollback();
-            throw new SQLException("Error al insertar usuario con Hibernate", e);
+            e.printStackTrace();
+            throw new SQLException("Error al insertar usuario con MongoDB: " + e.getMessage(), e);
         } finally {
-            em.close();
+            // No es necesario cerrar nada aquí ya que MongoDB maneja el pool de conexiones
         }
     }
 
@@ -63,13 +63,11 @@ public class UsuarioDAO {
      * Busca un usuario por su ID.
      */
     public Usuario selectUsuario(int id) throws SQLException {
-        EntityManager em = JPAUtil.getEntityManager();
         try {
-            return em.find(Usuario.class, id);
+            return collection.find(Filters.eq("_id", id)).first();
         } catch (Exception e) {
-            throw new SQLException("Error al buscar usuario por ID con Hibernate", e);
-        } finally {
-            em.close();
+            e.printStackTrace();
+            throw new SQLException("Error al buscar usuario por ID con MongoDB: " + e.getMessage(), e);
         }
     }
 
@@ -77,15 +75,13 @@ public class UsuarioDAO {
      * Obtiene todos los usuarios.
      */
     public List<Usuario> selectAllUsuarios() throws SQLException {
-        EntityManager em = JPAUtil.getEntityManager();
         try {
-            String jpql = "SELECT u FROM Usuario u";
-            TypedQuery<Usuario> query = em.createQuery(jpql, Usuario.class);
-            return query.getResultList();
+            List<Usuario> usuarios = new ArrayList<>();
+            collection.find().into(usuarios);
+            return usuarios;
         } catch (Exception e) {
-            throw new SQLException("Error al listar usuarios con Hibernate", e);
-        } finally {
-            em.close();
+            e.printStackTrace();
+            throw new SQLException("Error al listar usuarios con MongoDB: " + e.getMessage(), e);
         }
     }
 
@@ -93,24 +89,11 @@ public class UsuarioDAO {
      * Elimina un usuario por su ID.
      */
     public boolean deleteUsuario(int id) throws SQLException {
-        EntityManager em = JPAUtil.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
         try {
-            tx.begin();
-            Usuario usuario = em.find(Usuario.class, id);
-            if (usuario != null) {
-                em.remove(usuario);
-                tx.commit();
-                return true;
-            }
-            tx.commit();
-            return false;
+            return collection.deleteOne(Filters.eq("_id", id)).getDeletedCount() > 0;
         } catch (Exception e) {
-            if (tx.isActive())
-                tx.rollback();
-            throw new SQLException("Error al eliminar usuario con Hibernate", e);
-        } finally {
-            em.close();
+            e.printStackTrace();
+            throw new SQLException("Error al eliminar usuario con MongoDB: " + e.getMessage(), e);
         }
     }
 
@@ -118,29 +101,17 @@ public class UsuarioDAO {
      * Actualiza los datos de un usuario existente.
      */
     public boolean updateUsuario(Usuario usuario) throws SQLException {
-        EntityManager em = JPAUtil.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
         try {
-            tx.begin();
-            Usuario existingUsuario = em.find(Usuario.class, usuario.getId());
-            if (existingUsuario != null) {
-                existingUsuario.setNombre(usuario.getNombre());
-                existingUsuario.setEmail(usuario.getEmail());
-                existingUsuario.setPassword(usuario.getPassword());
-                existingUsuario.setRol(usuario.getRol());
-                // No actualizamos fechaRegistro
-                em.merge(existingUsuario);
-                tx.commit();
-                return true;
-            }
-            tx.commit();
-            return false;
+            Bson filter = Filters.eq("_id", usuario.getId());
+            Bson updates = Updates.combine(
+                    Updates.set("nombre", usuario.getNombre()),
+                    Updates.set("email", usuario.getEmail()),
+                    Updates.set("password", usuario.getPassword()),
+                    Updates.set("rol", usuario.getRol()));
+            return collection.updateOne(filter, updates).getModifiedCount() > 0;
         } catch (Exception e) {
-            if (tx.isActive())
-                tx.rollback();
-            throw new SQLException("Error al actualizar usuario con Hibernate", e);
-        } finally {
-            em.close();
+            e.printStackTrace();
+            throw new SQLException("Error al actualizar usuario con MongoDB: " + e.getMessage(), e);
         }
     }
 }

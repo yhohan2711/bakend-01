@@ -59,6 +59,12 @@ public class UsuarioApiServlet extends HttpServlet {
 
             Usuario newUsuario = gson.fromJson(jsonBody, Usuario.class);
 
+            if (newUsuario == null) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                response.getWriter().print("{\"error\": \"El cuerpo de la solicitud no puede estar vacio o es invalido.\"}");
+                return;
+            }
+
             // Asignar valores por defecto para campos obligatorios
             if (newUsuario.getPassword() == null || newUsuario.getPassword().isEmpty()) {
                 newUsuario.setPassword("123456"); // Default password
@@ -111,11 +117,17 @@ public class UsuarioApiServlet extends HttpServlet {
                 boolean ok = usuarioDAO.deleteUsuario(id);
                 if (ok) {
                     response.setStatus(HttpServletResponse.SC_OK);
+                    PrintWriter out = response.getWriter();
+                    out.print("{\"mensaje\": \"Usuario eliminado correctamente\", \"deleted\": true}");
                 } else {
                     response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    PrintWriter out = response.getWriter();
+                    out.print("{\"error\": \"Usuario no encontrado con el ID: " + id + "\"}");
                 }
             } else {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                PrintWriter out = response.getWriter();
+                out.print("{\"error\": \"Debe proporcionar un ID en la URL. Ejemplo: /api/usuarios/1\"}");
             }
         } catch (Exception ex) {
             handleException(ex, response);
@@ -124,6 +136,13 @@ public class UsuarioApiServlet extends HttpServlet {
 
     private void handleException(Exception ex, HttpServletResponse response) throws IOException {
         ex.printStackTrace(); // Mantener traza en servidor por si acaso
+
+        if (ex instanceof NumberFormatException) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            PrintWriter out = response.getWriter();
+            out.print("{\"error\": \"El ID proporcionado no es un numero valido. Revisa la URL (Ejemplo: .../usuarios/1).\"}");
+            return;
+        }
 
         boolean isDuplicate = false;
         Throwable cause = ex;

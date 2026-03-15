@@ -131,6 +131,23 @@ if not exist "lib\gson-2.10.1.jar" (
     powershell -Command "Invoke-WebRequest -Uri 'https://repo1.maven.org/maven2/com/google/code/gson/gson/2.10.1/gson-2.10.1.jar' -OutFile 'lib\gson-2.10.1.jar'"
 )
 
+REM --- MONGODB ---
+
+if not exist "lib\mongodb-driver-sync-4.11.1.jar" (
+    echo Descargando MongoDB Driver Sync...
+    powershell -Command "Invoke-WebRequest -Uri 'https://repo1.maven.org/maven2/org/mongodb/mongodb-driver-sync/4.11.1/mongodb-driver-sync-4.11.1.jar' -OutFile 'lib\mongodb-driver-sync-4.11.1.jar'"
+)
+
+if not exist "lib\mongodb-driver-core-4.11.1.jar" (
+    echo Descargando MongoDB Driver Core...
+    powershell -Command "Invoke-WebRequest -Uri 'https://repo1.maven.org/maven2/org/mongodb/mongodb-driver-core/4.11.1/mongodb-driver-core-4.11.1.jar' -OutFile 'lib\mongodb-driver-core-4.11.1.jar'"
+)
+
+if not exist "lib\bson-4.11.1.jar" (
+    echo Descargando BSON...
+    powershell -Command "Invoke-WebRequest -Uri 'https://repo1.maven.org/maven2/org/mongodb/bson/4.11.1/bson-4.11.1.jar' -OutFile 'lib\bson-4.11.1.jar'"
+)
+
 REM ============================================
 REM 2. COMPILACION
 REM ============================================

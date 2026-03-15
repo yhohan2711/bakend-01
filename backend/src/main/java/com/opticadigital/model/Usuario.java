@@ -1,7 +1,7 @@
 package com.opticadigital.model;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Clase Entidad que representa a un Usuario del sistema.
@@ -26,14 +26,14 @@ public class Usuario {
     private String rol;
 
     @Column(name = "fecha_registro", insertable = false, updatable = false)
-    private Timestamp fechaRegistro;
+    private Date fechaRegistro;
 
     // Constructor vacío
     public Usuario() {
     }
 
     // Constructor completo
-    public Usuario(int id, String nombre, String email, String password, String rol, Timestamp fechaRegistro) {
+    public Usuario(int id, String nombre, String email, String password, String rol, Date fechaRegistro) {
         this.id = id;
         this.nombre = nombre;
         this.email = email;
@@ -91,11 +91,11 @@ public class Usuario {
         this.rol = rol;
     }
 
-    public Timestamp getFechaRegistro() {
+    public Date getFechaRegistro() {
         return fechaRegistro;
     }
 
-    public void setFechaRegistro(Timestamp fechaRegistro) {
+    public void setFechaRegistro(Date fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
     }
 
