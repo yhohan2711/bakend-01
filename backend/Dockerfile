@@ -14,8 +14,10 @@ WORKDIR /usr/local/tomcat/webapps/
 RUN rm -rf ./ROOT ./examples ./docs ./manager ./host-manager
 
 # Copiar el WAR generado desde el paso anterior y renombrarlo a ROOT.war 
-# para que responda directamente en la URL principal
 COPY --from=build /app/target/*.war ./ROOT.war
+
+# Optimización de Memoria para el plan gratuito de Render (512MB)
+ENV JAVA_OPTS="-Xms256m -Xmx400m -XX:+UseSerialGC"
 
 EXPOSE 8080
 CMD ["catalina.sh", "run"]
