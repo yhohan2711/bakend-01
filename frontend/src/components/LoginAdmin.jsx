@@ -3,7 +3,7 @@ import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
 import { Message } from 'primereact/message';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { AdminService } from '../services/adminService';
 
 const LoginAdmin = () => {
@@ -82,6 +82,18 @@ const LoginAdmin = () => {
                         style={{ width: '100%', background: 'var(--primary-color)', borderColor: 'var(--primary-color)' }}
                         disabled={loading}
                     />
+
+                    <div style={{ textAlign: 'center', marginTop: '1rem' }}>
+                        <Link to="/administradores/nuevo" style={{ textDecoration: 'none' }}>
+                            <Button 
+                                type="button" 
+                                label="Crear Cuenta Nueva" 
+                                icon="pi pi-user-plus" 
+                                outlined 
+                                style={{ width: '100%' }} 
+                            />
+                        </Link>
+                    </div>
                 </form>
             </Card>
         </div>
