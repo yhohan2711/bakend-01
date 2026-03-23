@@ -7,7 +7,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Paso 2: Servidor Tomcat para ejecutar el WAR
-FROM tomcat:9.0-jre17-slim
+FROM tomcat:9.0-jdk17-slim
 WORKDIR /usr/local/tomcat/webapps/
 
 # Eliminar aplicaciones por defecto de Tomcat para evitar basura
