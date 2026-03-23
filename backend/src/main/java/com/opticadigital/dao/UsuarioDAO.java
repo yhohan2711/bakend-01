@@ -52,9 +52,9 @@ public class UsuarioDAO {
     }
 
     /**
-     * Busca un usuario por su ID (como String).
+     * Busca un usuario por su ID (como int).
      */
-    public Usuario selectUsuario(String id) throws SQLException {
+    public Usuario selectUsuario(int id) throws SQLException {
         try {
             return collection.find(Filters.eq("_id", id)).first();
         } catch (Exception e) {
@@ -78,9 +78,9 @@ public class UsuarioDAO {
     }
 
     /**
-     * Elimina un usuario por su ID (como String).
+     * Elimina un usuario por su ID (como int).
      */
-    public boolean deleteUsuario(String id) throws SQLException {
+    public boolean deleteUsuario(int id) throws SQLException {
         try {
             return collection.deleteOne(Filters.eq("_id", id)).getDeletedCount() > 0;
         } catch (Exception e) {
