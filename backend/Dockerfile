@@ -1,5 +1,5 @@
-# Paso 1: Compilación con Maven
-FROM maven:3.9.6-eclipse-temurin-21 AS build
+# Paso 1: Compilación con Maven (Usando Java 17 para compatibilidad total)
+FROM maven:3.8.5-openjdk-17 AS build
 WORKDIR /app
 COPY pom.xml .
 COPY src ./src
