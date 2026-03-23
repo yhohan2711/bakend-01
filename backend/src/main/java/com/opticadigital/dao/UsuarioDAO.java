@@ -43,7 +43,13 @@ public class UsuarioDAO {
      */
     public void insertUsuario(Usuario usuario) throws SQLException {
         try {
-            // Nota: El ID se maneja como String. Si es nulo, MongoDB generará un ObjectId.
+            // Como MongoDB no tiene auto-increment nativo para números enteros,
+            // le asignaremos un número pseudo-aleatorio o basado temporalmente para que sea único
+            if (usuario.getId() <= 0) {
+                // Genera un ID "enteramente" único basado en el tiempo actual
+                int uniqueId = Math.abs((int) (System.currentTimeMillis() % 1000000000));
+                usuario.setId(uniqueId);
+            }
             collection.insertOne(usuario);
         } catch (Exception e) {
             e.printStackTrace();
