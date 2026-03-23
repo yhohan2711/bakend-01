@@ -9,6 +9,9 @@ RUN mvn clean package -DskipTests
 FROM tomcat:9.0-jdk17
 WORKDIR /usr/local/tomcat/webapps/
 
+# Ajustar puerto a 10000 (Estándar de Render) para evitar reinicios por re-mapeo
+RUN sed -i 's/port="8080"/port="10000"/g' /usr/local/tomcat/conf/server.xml
+
 # Limpieza inicial de apps por defecto
 RUN rm -rf ./ROOT ./examples ./docs ./manager ./host-manager
 
@@ -18,5 +21,5 @@ COPY --from=build /app/target/ROOT.war ./ROOT.war
 # Ajuste de memoria agresivo para Render (Free Tier)
 ENV JAVA_OPTS="-Xms200m -Xmx320m -XX:+UseSerialGC -Djava.security.egd=file:/dev/./urandom"
 
-EXPOSE 8080
+EXPOSE 10000
 CMD ["catalina.sh", "run"]
