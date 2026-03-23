@@ -12,7 +12,7 @@
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
-    <!-- CORS Filter bloqueado temporalmente para pruebas de arranque
+    <!-- CORS Filter para permitir peticiones desde el frontend (Static Site) -->
     <filter>
         <filter-name>CORSFilter</filter-name>
         <filter-class>com.opticadigital.filter.CORSFilter</filter-class>
@@ -20,7 +20,7 @@
     <filter-mapping>
         <filter-name>CORSFilter</filter-name>
         <url-pattern>/*</url-pattern>
-    </filter-mapping> -->
+    </filter-mapping>
 
     <!-- Servlet Registration -->
     <servlet>

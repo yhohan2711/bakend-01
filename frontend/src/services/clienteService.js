@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // URL base del backend
-const API_URL = 'http://localhost:8080/opticadigital/api/usuarios';
+const API_URL = 'https://bakend-optica.onrender.com/api/usuarios';
 
 export const ClienteService = {
     /**

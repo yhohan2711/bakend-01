@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // URL base del backend - Ajustar según la configuración del servidor Tomcat
 // Asumiendo que el backend corre en localhost:8080 y el contexto es OpticaDigital
-const API_URL = 'http://localhost:8080/opticadigital/api/usuarios';
+const API_URL = 'https://bakend-optica.onrender.com/api/usuarios';
 
 export const UsuarioService = {
     getUsuarios: async () => {
