@@ -15,7 +15,8 @@ public class MongoDBUtil {
     private static MongoClient mongoClient;
     private static MongoDatabase database;
     private static final String DATABASE_NAME = "opticadigital";
-    private static final String CONNECTION_STRING = "mongodb://localhost:27017";
+    // URI de conexión a MongoDB Atlas
+    private static final String CONNECTION_STRING = "mongodb+srv://Admin_db_user:dzr3B9m87CroBrzA@proyecto01.2chr1uv.mongodb.net/?retryWrites=true&w=majority&appName=proyecto01";
 
     static {
         try {
