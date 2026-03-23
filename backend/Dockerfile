@@ -6,7 +6,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Paso 2: Servidor Tomcat 9 (Para compatibilidad con javax.servlet)
-FROM tomcat:9.0-jdk17-slim
+FROM tomcat:9.0-jdk17
 WORKDIR /usr/local/tomcat/webapps/
 
 # Limpieza inicial de apps por defecto
