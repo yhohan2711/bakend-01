@@ -43,26 +43,18 @@ public class UsuarioDAO {
      */
     public void insertUsuario(Usuario usuario) throws SQLException {
         try {
-            // En MongoDB, si usamos un POJO con un campo 'id', este se mapea a '_id' por defecto.
-            // Para encontrar el ID máximo, ordenamos por '_id' de forma descendente.
-            if (usuario.getId() <= 0) {
-                Usuario ultimo = collection.find().sort(com.mongodb.client.model.Sorts.descending("_id")).first();
-                int nuevoId = (ultimo != null) ? ultimo.getId() + 1 : 1;
-                usuario.setId(nuevoId);
-            }
+            // Nota: El ID se maneja como String. Si es nulo, MongoDB generará un ObjectId.
             collection.insertOne(usuario);
         } catch (Exception e) {
             e.printStackTrace();
             throw new SQLException("Error al insertar usuario con MongoDB: " + e.getMessage(), e);
-        } finally {
-            // No es necesario cerrar nada aquí ya que MongoDB maneja el pool de conexiones
         }
     }
 
     /**
-     * Busca un usuario por su ID.
+     * Busca un usuario por su ID (como String).
      */
-    public Usuario selectUsuario(int id) throws SQLException {
+    public Usuario selectUsuario(String id) throws SQLException {
         try {
             return collection.find(Filters.eq("_id", id)).first();
         } catch (Exception e) {
@@ -86,9 +78,9 @@ public class UsuarioDAO {
     }
 
     /**
-     * Elimina un usuario por su ID.
+     * Elimina un usuario por su ID (como String).
      */
-    public boolean deleteUsuario(int id) throws SQLException {
+    public boolean deleteUsuario(String id) throws SQLException {
         try {
             return collection.deleteOne(Filters.eq("_id", id)).getDeletedCount() > 0;
         } catch (Exception e) {

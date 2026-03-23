@@ -1,31 +1,17 @@
 package com.opticadigital.model;
 
-import javax.persistence.*;
 import java.util.Date;
 
 /**
  * Clase Entidad que representa a un Usuario del sistema.
+ * Limpiada de etiquetas JPA-Hibernate para compatibilidad con MongoDB Atlas.
  */
-@Entity
-@Table(name = "usuarios")
 public class Usuario {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    @Column(nullable = false, length = 100)
     private String nombre;
-
-    @Column(nullable = false, length = 100, unique = true)
     private String email;
-
-    @Column(nullable = false, length = 255)
     private String password;
-
-    @Column(columnDefinition = "ENUM('admin', 'empleado', 'cliente') DEFAULT 'empleado'")
     private String rol;
-
-    @Column(name = "fecha_registro", insertable = false, updatable = false)
     private Date fechaRegistro;
 
     // Constructor vacío
